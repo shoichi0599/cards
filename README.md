@@ -225,10 +225,139 @@ import "fmt"
 func main() {
     // string -> []byte
     // []byte       : Type we want
-    // ("Hi there!"): Value we have
+    // "Hi there!"  : Value we have
     // []byte("Hi there!")
-    
     greeting := "Hi there !"
-    fmt.Println([]byte(greeting))
+    fmt.Println([]byte(greeting))  // => [72 105 32 116 104 101 114 101 32 33]
+    
+    // []byte -> string
+    byteSlice := []byte("Hello")
+    fmt.Println(string(byteSlice)) // => Hello 
+}
+```
+
+### 11. Joining a Slice of String
+Reference: https://golang.org/pkg/strings/#Join
+```go
+package main
+import (
+    "fmt"
+    "strings"
+)
+
+func main() {
+    fruits := []string {"apple", "banana", "orange"}
+    // => [apple banana orange]
+    
+    // Use 'Join' function in 'strings' package
+    // => func Join(a []string, sep string) string
+    //    * sep -> separator
+    fmt.Println(strings.Join(fruits, ","))
+    // => apple,banana,orage
+}
+```
+
+### 12. Splitting a String into a Slice of String
+```go
+package main
+import (
+    "fmt"
+    "strings"
+)
+
+func main() {
+    s := "apple,banana,orange"
+    
+    // Use 'Split' function in 'strings' package
+    // => func Split(s, sep string) []string
+    fmt.Println(strings.Split(s, ","))  // => [apple banana orange]
+}
+``` 
+
+### 13. Writing a File
+Reference: https://golang.org/pkg/io/ioutil/#WriteFile
+```go
+package main
+
+import "io/ioutil"
+
+func main() {
+    // Use 'WriteFile' function in 'io/ioutil' package
+    // => func WriteFile(filename string, data []byte, perm os.FileMode) error
+    //    * perm -> permission
+    // perm: 0666 means anyone can read and write this file
+    // Note that you need to handle an error which may be cased by 'ioutil.Write' properly
+    ioutil.WriteFile("test.txt", []byte("Hello!"), 0666)
+}
+```
+
+### 14. Reading a File
+Reference: https://golang.org/pkg/io/ioutil/#ReadFile
+```go
+package main
+
+import (
+    "fmt"
+    "io/ioutil"
+)
+
+func main() {
+    // Use 'ReadFile' function in 'io/ioutil' package 
+    // => func ReadFile(filename string) ([]byte, error)
+    // bs, _ := ioutil.ReadFile(filename)
+    // bs: byte slice
+    // _: Ignore return value 'error' of 'ReadFile' function this time but you need to handle it properly
+    // Let's say 'Hello!' is written in 'test.txt'
+    bs, _ := ioutil.ReadFile("test.txt")
+    // string(bs): Type conversion from 'byte[]' to 'string'
+    fmt.Println(string(bs))  // => Hello!
+}
+```
+
+### 15. Quiting a program
+Reference: https://golang.org/pkg/io/ioutil/#ReadFile
+```go
+package main
+import "os"
+
+func main() {
+    // Use 'Exit' function in 'os' package
+    // => func Exit(code int)
+    //    code:  zero indicates success, non-zero an error
+    os.Exit(1)
+}
+```
+
+### 16. Error Handling
+```go
+package main
+
+import (
+    "fmt"
+    "io/ioutil"
+    "os"
+)
+
+func main() {
+    // bs, err := ioutil.ReadFile(filename)
+    // bs: byte slice
+    // error: Value of type 'error'.
+    //        If nothing went wrong, it will have a value of 'nil'
+    bs, err := ioutil.ReadFile("test.txt")
+
+    // Error handling
+    // For handling error, apply commonsense questions like
+    // ask yourself hey if something goes wrong here what do I really want to happen
+    // Example:
+    // Option #1 - Log the error and return a call to newDeck()
+    // Option #2 - Log the error and entirely quit the program
+    if err != nil {
+        // Take option #2
+        fmt.Println("Error:", err) 
+        // code zero indicates success, non-zero an error
+        os.Exit(1)
+    }
+    
+    fmt.Println("The content of file:", string(bs))
 }
 ```

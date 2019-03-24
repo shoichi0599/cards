@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io/ioutil"
+	"os"
+	"strings"
+)
 
 // Create a new type of 'deck'
 // which is a slice of strings
@@ -37,4 +42,43 @@ func (d deck) print() {
 
 func deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
+}
+
+func (d deck) toString() string {
+	return strings.Join([]string(d), ",")
+}
+
+func (d deck) saveToFile(filename string) error {
+	// perm: 0666 means anyone can read and write this file
+	// * perm -> permission
+	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
+}
+
+func newDeckFromFile(filename string) deck {
+	// bs, err := ioutil.ReadFile(filename)
+	// bs: byte slice
+	// error: Value of type 'error'.
+	//        If nothing went wrong, it will have a value of 'nil'
+	bs, err := ioutil.ReadFile(filename)
+
+	// Error handling
+	// For handling error,
+	// ask yourself hey if something goes wrong here what do I really want to happen
+	// Example:
+	// Option #1 - Log the error and return a call to newDeck()
+	// Option #2 - Log the error and entirely quit the program
+	if err != nil {
+		// Take option #2
+		fmt.Println("Error:", err)
+		// code zero indicates success, non-zero an error
+		os.Exit(1)
+	}
+
+	// string(bs): Type conversion from 'byte[]' to 'string'
+	// => Ace of Spades,Two of Spades,Three of Spades, ...
+	// Split the string into a slice of string
+	s := strings.Split(string(bs), ",")
+
+	// Convert the slice into deck then return
+	return deck(s)
 }
