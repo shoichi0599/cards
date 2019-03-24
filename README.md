@@ -1,5 +1,5 @@
 # Overview
-A project that simulates with a deck of playing cards
+A project simulates with a deck of playing cards
 following the course [Go: The complete Developer's Guide](https://www.udemy.com/go-the-complete-developers-guide/).
 ```
 Functions in Cards:
