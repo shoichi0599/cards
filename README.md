@@ -315,7 +315,7 @@ func main() {
 ```
 
 ### 15. Quiting a program
-Reference: https://golang.org/pkg/io/ioutil/#ReadFile
+Reference: https://golang.org/pkg/os/#Exit
 ```go
 package main
 import "os"
