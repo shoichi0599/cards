@@ -1,12 +1,6 @@
 # Overview
 
 ## Basic Use of GO 
-1. Variable Declarations
-2. Functions and Return Types
-3. Slices and For Loops
-4. Slice Range Syntax
-5. Blank Identifier '_' (underscore)
-6. Multiple Return Values in One Function
 
 ### 1. Variable Declarations
 ```go
