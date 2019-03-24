@@ -310,7 +310,7 @@ func main() {
     // Let's say 'Hello!' is written in 'test.txt'
     bs, _ := ioutil.ReadFile("test.txt")
     // string(bs): Type conversion from 'byte[]' to 'string'
-    fmt.Println(string(bs))  // => Hello!
+    fmt.Println("The content of file:", string(bs))  // => The content of file: Hello!
 }
 ```
 
