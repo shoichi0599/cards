@@ -16,6 +16,7 @@ Functions in Cards:
 +--------------------------------------------------------------------------+
 ```
 
+# What I Learned
 ## Go Command
 ```
 go build   : Compiles a bunch of go source code files
@@ -29,10 +30,10 @@ go test    : Runs any tests associated with the current project
 
 ## Go Package
 There are two types of packages, one is executable package and the other is reusable package . 
-#### 1. Executable package 
+### 1. Executable package 
 Defines a package that can be compiled and then executed by Go.<br>
 Must have a func called 'main'<br>
-Syntax: "package main"<br>
+Syntax: ```package main```<br>
 Example:
 ```go
 package main
@@ -40,9 +41,10 @@ package main
 func main() {
 }
 ```
-#### 2. Reusable package 
+### 2. Reusable package 
 Defines a package that can be used as a dependency (helper code) like "fmt"<br>
-To use it, we need to import them.
+Needs to be imported.<br>
+Syntax: ```package "{PACKAGE_NAME}"```<br>
 Example:
 ```go
 package main
