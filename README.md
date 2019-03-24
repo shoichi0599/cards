@@ -1,5 +1,5 @@
 # Overview
-A project simulates with a deck of playing cards
+Learning Go by creating a project that simulates with a deck of playing cards
 following the course [Go: The complete Developer's Guide](https://www.udemy.com/go-the-complete-developers-guide/).
 ```
 Functions in Cards:
@@ -16,8 +16,45 @@ Functions in Cards:
 +--------------------------------------------------------------------------+
 ```
 
-## Basic Use of GO 
+## Go Command
+```
+go build   : Compiles a bunch of go source code files
+            Example: go build
+go run     : Compiles and executes one or two files
+go fmt     : Formats all the code in each file in the current directory
+go install : Compiles and “installs” a packages
+go get     : Downloads the raw source code of someone else’s package
+go test    : Runs any tests associated with the current project
+```
 
+## Go Package
+There are two types of packages, one is executable package and the other is reusable package . 
+#### 1. Executable package 
+Defines a package that can be compiled and then executed by Go.<br>
+Must have a func called 'main'<br>
+Syntax: "package main"<br>
+Example:
+```go
+package main
+
+func main() {
+}
+```
+#### 2. Reusable package 
+Defines a package that can be used as a dependency (helper code) like "fmt"<br>
+To use it, we need to import them.
+Example:
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Import fmt package!")
+}
+```
+
+## Basic Use of Go
 ### 1. Variable Declarations
 ```go
 package main
@@ -101,7 +138,48 @@ func main() {
 }
 ```
 
-### 6. Multiple Return Values in One Function
+### 6. Custom Type Declarations
+```go
+package main
+import "fmt"
+
+func main() {
+    cards := deck{"Ace of Diamonds", "Two of Diamonds"}
+    fmt.Println(cards)
+}
+
+// Create a new type of 'deck' which is a slice of string
+type deck []string
+```
+
+### 7. Receiver Functions
+```go
+package main
+import "fmt"
+
+func main() {
+    cards := deck{"Ace of Diamonds", "Two of Diamonds"}
+    fmt.Println(cards)
+}
+
+// Create a new type of 'deck' which is a slice of string
+type deck []string
+
+// (d deck) -> receiver
+// d: The actual copy of the deck we're working with is available
+//    in the function as variable called 'd'.
+// deck: Every variable of type 'deck' can call this function on itself.
+// ----------------------------------------------------------------------------
+// Any variable of type "deck" now gets access to the "print" method.
+// The receiver sets up methods on variables that we create.
+func (d deck) print() {
+    for i, card := range d {
+        fmt.Println(i, card)
+    }
+}
+```
+
+### 8. Multiple Return Values in One Function
 ```go
 package main
 import "fmt"
@@ -118,4 +196,30 @@ func getBookInfo() (string, int) {
 }
 ```
 
+### 9. Byte Slice
+```
+"Hi there" (string)
+   ↓
+[72 105 32 116 104 101 114 101 33] (byte slice)
 
+Every element inside of the slice corresponds to an ASCII character code
+Example: 72 => H, 105 => i, 32 => " " (space)...etc
+Ref: http://www.asciitable.com/
+=> byte slice is a computer friendly representation of a string
+```
+
+### 10. Type Convertion
+```go
+package main
+import "fmt"
+
+func main() {
+    // string -> []byte
+    // []byte       : Type we want
+    // ("Hi there!"): Value we have
+    // []byte("Hi there!")
+    
+    greeting := "Hi there !"
+    fmt.Println([]byte(greeting))
+}
+```
