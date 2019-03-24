@@ -210,7 +210,7 @@ Ref: http://www.asciitable.com/
 => byte slice is a computer friendly representation of a string
 ```
 
-### 10. Type Convertion
+### 10. Type Conversion
 ```go
 package main
 import "fmt"
