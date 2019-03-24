@@ -15,12 +15,17 @@ Functions in Cards:
 | - newDeckFromFile: Load a list of cards from the local machine.          |
 +--------------------------------------------------------------------------+
 ```
+## Go Documentations
+- Go Documentation: https://golang.org
+- Effective Go: https://golang.org/doc/effective_go.html
 
 # What I Learned
 ## Go Command
+For more detail, see [Command Documentation](https://golang.org/doc/cmd).
 ```
+go <command> {filename} like 'go run main.go'.
+-----------
 go build   : Compiles a bunch of go source code files
-            Example: go build
 go run     : Compiles and executes one or two files
 go fmt     : Formats all the code in each file in the current directory
 go install : Compiles and “installs” a packages
@@ -29,7 +34,8 @@ go test    : Runs any tests associated with the current project
 ```
 
 ## Go Package
-There are two types of packages, one is executable package and the other is reusable package . 
+There are two types of packages, one is executable package and the other is reusable package .<br>
+For more detail, see [Package Documentation](https://golang.org/pkg/).
 ### 1. Executable package 
 Defines a package that can be compiled and then executed by Go.<br>
 Must have a func called 'main'<br>
@@ -57,6 +63,7 @@ func main() {
 ```
 
 ## Basic Use of Go
+For more detail, see [Language Specification](https://golang.org/ref/spec).
 ### 1. Variable Declarations
 ```go
 package main
