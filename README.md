@@ -361,3 +361,37 @@ func main() {
     fmt.Println("The content of file:", string(bs))
 }
 ```
+
+### 17. Generating a random number
+Reference:
+- Rand: https://golang.org/pkg/math/rand/#Rand
+- Source: https://golang.org/pkg/math/rand/#Source
+- Time : https://golang.org/pkg/time/#Time
+```go
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+func main() {
+	numbers := []int {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	
+	// 1) Generate a different int64 number every single time we start up our program,
+	// 2) we use that as the seed to generate a new source object,
+	// 3) and we use that source object as the basis of the new random number generator
+	// ↓
+	// 1) time.Now().UnixNano()
+	// 2) source := rand.NewSource(time.Now().UnixNano())
+	// 3) rand.New(source)
+	// Note that if we don't change the seed, we'll get the same number every time.
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
+	for range numbers {
+		fmt.Println(r.Intn(len(numbers) - 1))
+	}
+}
+```
