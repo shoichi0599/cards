@@ -395,3 +395,102 @@ func main() {
 	}
 }
 ```
+### 18. Testing Code
+To make a test, create a new file ending in ```_test.go``` in the same directory.<br>
+For example, if you have ```book.go``` file, then create ```book_test.go```.<br>
+```
+root
+  ├ book.go
+  └ book_test.go
+    
+```
+To run all tests in a package, run the command 
+```
+go test
+```
+
+##### Example Code
+```book.go```
+```go
+package main
+
+func getTitle() string {
+	return "kingdom"
+}
+```
+```book_test.go```
+```go
+package main
+
+import "testing"
+
+// Function naming and argument convention
+// -> 'func Test{method_name_(and description)} (t *testing.T)'
+// `t` is a test handler
+// We tell `t` that something just went wrong
+func TestGetTitle(t *testing.T) {
+	title := getTitle()
+	if title != "kingdom" {
+		t.Errorf("Expected title of kingdom, but got %v", title)
+	}
+}
+```
+<br>
+<p><b>
+For testing file I/O, you need to make sure that whenever we are writing test with Go<br>
+we take care of any cleanup that needs to be done manually,<br>
+because there is no hand-holding by the Go testing framework.<br>
+</b></p>
+
+##### Example Code
+```file.go```
+```go
+package main
+
+import "io/ioutil"
+
+type file string
+
+func newFile(data string) file {
+	return file(data)
+}
+
+func (f file) create(filename string) error {
+	// ignore error this time
+	return ioutil.WriteFile(filename, []byte(f), 0666)
+}
+
+func readFile(filename string) file {
+	// ignore error this time
+	bs, _ := ioutil.ReadFile(filename)
+	return file(string(bs))
+}
+
+```
+
+```file_test.go```
+```go
+package main
+
+import (
+	"os"
+	"testing"
+)
+
+func TestCreate(t *testing.T) {
+	// Remove file with the name "_filetesting" beforehand
+	// * Need to handle error properly, but ignore this time
+	os.Remove("_filetesting")
+
+	file := newFile("hello")
+	file.create("_filetesting")
+
+	loadedFile := readFile("_filetesting")
+	if loadedFile != "hello" {
+		t.Errorf("Expected file of hello, but got %v", loadedFile)
+	}
+
+	// Remove file with the name "_filetesting" afterward
+	os.Remove("_filetesting")
+}
+```
